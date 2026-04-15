@@ -37,7 +37,7 @@ export const getResponseById = async (req, res) => {
 // ==========================================
 export const createResponse = async (req, res) => {
   try {
-    const { issueCode, responseText, category, priority } = req.body;
+    const { issueCode, responseText, category } = req.body;
 
     const response = new HelpdeskResponse({
       issueCode,
@@ -65,7 +65,7 @@ export const createResponse = async (req, res) => {
 // ==========================================
 export const updateResponse = async (req, res) => {
   try {
-    const { issueCode, responseText, category, priority } = req.body;
+    const { issueCode, responseText, category } = req.body;
 
     const updatedResponse = await HelpdeskResponse.findByIdAndUpdate(
       req.params.id,
@@ -73,9 +73,8 @@ export const updateResponse = async (req, res) => {
         issueCode,
         responseText,
         category,
-        // priority,
       },
-      { new: true }, // Returns the updated data
+      { returnDocument: "after" }, // Returns the updated data
     );
 
     if (!updatedResponse) {
